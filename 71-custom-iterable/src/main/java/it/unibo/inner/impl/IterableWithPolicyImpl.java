@@ -47,7 +47,11 @@ public class IterableWithPolicyImpl<T> implements IterableWithPolicy<T> {
             if (current >= elements.length) {
                 return false;
             }
-            return true;
+            if (predicate.test(elements[current])) {
+                return true;
+            }
+            current++;
+            return hasNext();
         }
 
         @Override
@@ -56,6 +60,7 @@ public class IterableWithPolicyImpl<T> implements IterableWithPolicy<T> {
                 throw new NoSuchElementException();
             }
             T n = elements[current];
+
             current++;
             return n;
         }
