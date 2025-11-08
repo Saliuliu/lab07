@@ -35,7 +35,6 @@ class TestFunctionalLibrary {
             })
         );
     }
-
     @Test
     void testFlatten() {
         final Function<String, List<String>> triplicator = new Function<>() {
