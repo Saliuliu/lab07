@@ -37,10 +37,14 @@ public final class MonthSorterNested implements MonthSorter {
         November(30),
         December(31);
 
-        public int days;
+        private final int days;
 
         private Month(int days) {
             this.days = days;
+        }
+
+        public int getDays(){
+            return this.days;
         }
 
         public static Month fromString(String month){
@@ -80,7 +84,7 @@ public final class MonthSorterNested implements MonthSorter {
         public int compare(String o1, String o2) {
             Month m1 = Month.fromString(o1);
             Month m2 = Month.fromString(o2);
-            if (m1.days < m2.days) {
+            if (m1.getDays() < m2.getDays()) {
                 return -1;
             } else if (m1.days > m2.days){
                 return 1;
