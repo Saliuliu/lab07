@@ -55,12 +55,9 @@ public final class Transformers {
      */
     public static <I, O> List<O> transform(final Iterable<I> base, final Function<I, O> transformer) {
         return flattenTransform(base, new Function<I,Collection<? extends O>>() {
-
             @Override
             public Collection<? extends O> call(I input) {
-                List<O> list = new ArrayList<>();
-                list.add(transformer.call(input));
-                return list;
+                return List.of(transformer.call(input));
             }
             
         });
@@ -79,15 +76,7 @@ public final class Transformers {
      * @return A flattened list with the elements of each collection in the input
      */
     public static <I> List<? extends I> flatten(final Iterable<? extends Collection<? extends I>> base) {
-        return flattenTransform(base, new Function<Collection<? extends I>, Collection<? extends I>>() {
-
-            @Override
-            public Collection<? extends I> call(Collection<? extends I> input) {
-                return input;
-            }
-
-            
-        });
+        return flattenTransform(base, Function.identity());
     }
 
     /**
@@ -108,11 +97,10 @@ public final class Transformers {
 
             @Override
             public Collection<? extends I> call(I input) {
-                List<I> list = new ArrayList<>();
                 if (test.call(input)) {
-                    list.add(input);
+                    return List.of(input);
                 }
-                return list;
+                return List.of();
             }
             
         });
